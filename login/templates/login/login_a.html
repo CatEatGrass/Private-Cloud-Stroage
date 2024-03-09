@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.bootcdn.net/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'DragonSite-main/static/css/common.css' %}" rel="stylesheet">
+    <title>Login Page - MyCloud</title>
+    <style>
+        #introCarousel,
+        .carousel-inner,
+        .carousel-item,
+        .carousel-item.active {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- 你的头部内容，例如导航栏 -->
+    </header>
+
+    <!-- 登录部分 -->
+    <section class="mb-5" id="loginBlock">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="bg-image hover-overlay ripple shadow-2-strong rounded-5" data-mdb-ripple-color="light">
+                    <img src="{% static 'pan/image/coffee.jpg' %}" class="img-fluid" alt=""/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="mb-5 text-center"><strong>登录</strong></h4>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <!-- 添加 action URL -->
+                        <form class="row gy-4 needs-validation" id="loginForm" action="{% url 'your_login_url_name' %}" method="post" novalidate>
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <div class="form-outline">
+                                    <input type="text" id="username" name="username" class="form-control"
+                                           maxlength="150" pattern="^[\w.@+-_]+$" required/>
+                                    <label class="form-label" for="username">用户名</label>
+                                    <div class="invalid-feedback">
+                                        长度小于150；特殊字符'@'、'.'、'-'、'_'、'+'
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-outline">
+                                    <input type="password" id="password" name="password" class="form-control"
+                                           minlength="6" maxlength="128" required/>
+                                    <label class="form-label" for="password">密码</label>
+                                    <div class="invalid-feedback">
+                                        长度大于6小于128
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input me-2" id="remember" name="remember"
+                                           type="checkbox" checked/>
+                                    <label class="form-check-label" for="remember">记住我</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">登录</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+        <!-- 登录表单的 HTML 内容 -->
+    </section>
+
+    <!-- 注册部分 -->
+    <section class="mb-5" id="registerBlock">
+        <div class="row">
+            <div class="col-md-6 order-md-1 order-2">
+                <h4 class="mb-5 text-center"><strong>注册</strong></h4>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <!-- 添加 action URL -->
+                        <form class="row gy-4 needs-validation" id="registerForm" action="{% url 'your_register_url_name' %}" method="post" novalidate>
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <div class="form-outline">
+                                    <input type="text" id="registerUsername" name="username" class="form-control"
+                                           maxlength="150" pattern="^[\w.@+-_]+$" required/>
+                                    <label class="form-label" for="registerUsername">用户名</label>
+                                    <div class="invalid-feedback">
+                                        长度小于150；特殊字符'@'、'.'、'-'、'_'、'+'
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-outline">
+                                    <input type="password" id="registerPassword" name="password"
+                                           class="form-control" minlength="6" maxlength="128" required/>
+                                    <label class="form-label" for="registerPassword">密码</label>
+                                    <div class="invalid-feedback">
+                                        必填；长度大于6小于128
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-outline">
+                                    <input type="password" id="confirmPassword" name="confirmPassword"
+                                           class="form-control" minlength="6" maxlength="128" required/>
+                                    <label class="form-label" for="confirmPassword">确认密码</label>
+                                    <div class="invalid-feedback">
+                                        必填；长度大于6小于128
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">注册</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4 order-md-2 order-1">
+                <div class="bg-image hover-overlay ripple shadow-2-strong rounded-5" data-mdb-ripple-color="light">
+                    <img src="{% static 'pan/image/nature.jpg' %}" class="img-fluid" alt=""/>
+                </div>
+            </div>
+        </div>
+    </section> 
+        <!-- 注册表单的 HTML 内容 -->
+    </section>
+</body>
+</html>

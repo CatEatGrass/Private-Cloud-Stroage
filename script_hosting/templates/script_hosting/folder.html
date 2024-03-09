@@ -1,0 +1,56 @@
+{% extends "base.html" %}  <!-- 假设您有一个基础模板 -->
+
+{% block content %}
+<h2>文件管理</h2>
+
+<!-- 文件上传表单 -->
+<form action="{% url 'publicdisk:upload' path='script' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="files" multiple>
+    <button type="submit">上传文件</button>
+</form>
+
+<!-- 文件列表 -->
+<table>
+    <tr>
+        <th>文件名</th>
+        <th>操作</th>
+    </tr>
+    {% for file in files %}
+    <tr>
+        <td>{{ file.name }}</td>
+        <td>
+            <a href="{% url 'publicdisk:download' path=file.get_url_path %}">下载</a>
+            <button onclick="deleteFile('{{ file.id }}', 'file')">删除</button>
+            {% if file.name.endswith('.py') %}
+            <button onclick="runScript({{ file.id }})">运行脚本</button>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+function deleteFile(fileId, fileType) {
+    if(confirm('确定删除这个文件吗？')) {
+        $.post('{% url 'publicdisk:delete' %}', {type: fileType, path: fileId}, function(data) {
+            location.reload(); // 重新加载页面
+        });
+    }
+}
+
+function runScript(fileId) {
+    $.post('{% url 'publicdisk:run_script' fileId %}', function(data) {
+        if(data.status === 'success') {
+            alert('脚本输出: ' + data.output);
+        } else {
+            alert('错误: ' + data.output);
+        }
+    }).fail(function() {
+        alert('脚本执行失败');
+    });
+}
+</script>
+
+{% endblock %}

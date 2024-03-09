@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.bootcdn.net/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!--link href="{% static 'css/common.css' %}" rel="stylesheet"-->
+    <title>Login Page - MyCloud</title>
+    <style>
+        #introCarousel,
+        .carousel-inner,
+        .carousel-item,
+        .carousel-item.active {
+            height: 100vh;
+        }
+    </style>
+</head>
+
+{% block content-core %}
+    <div style="margin: 15% 40%;">
+        <h1>Welcome, pls login!</h1>
+        <form action="/login/user_login/" method="post">
+            {% csrf_token %}
+            <p>
+                <label for="id_username">User Name</label>
+                <input type="text" id="id_username" name="username" placeholder="用户名" required />
+            </p>
+
+            <p>
+                <label for="id_password">Password：</label>
+                <input type="password" id="id_password" placeholder="密码" name="password" required >
+            </p>
+            <input type="submit" value="Login">
+        </form>
+        <a href="{% url 'register' %}">Register</a>
+    </div>
+{% endblock %}
+
